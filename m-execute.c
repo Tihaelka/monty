@@ -1,8 +1,7 @@
 #include "monty.h"
 
 /**
- * execute - Function that checks for a command "opcode" and execute the
- * function if there's a match.
+ * execute - Execute a function associated with opcode
  * @token: Tokane containing the opcode to execute.
  * @stack: Doubly linked list representation of a stack.
  * @line_num: Line number where the opcode was found.

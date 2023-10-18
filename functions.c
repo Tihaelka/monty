@@ -63,9 +63,8 @@ void mswap(stack_t **stack, unsigned int line_number)
  * @stack: The pointer to the stack list.
  * @line_number: The line number of a Monty bytecodes file.
  * Description: The result is stored in the second value node
- *              from the top and the top value  is removed.
+ * from the top and the top value  is removed.
  */
- 
 void madd(stack_t **stack, unsigned int line_number)
 {
 	int temp;
@@ -79,25 +78,3 @@ void madd(stack_t **stack, unsigned int line_number)
 	(*stack)->next->n = temp;
 	mpop(stack, line_number);
 }
-
-/**
- * msub - A function that subtracts the second value from the top of a
- * stack linked by the top value.
- * @stack: The pointer to the stack list.
- * @line_number: The line number of a Monty bytecodes file.
- * Description: The result is stored in the second node
- *              from the top and the top value is removed.
-
-void msub(stack_t **stack, unsigned int line_number)
-{
-	int temp;
-
-	if (*stack == NULL || (*stack)->next == NULL)
-	{
-		print(5, line_number);
-		exit(EXIT_FAILURE);
-	}
-	temp = (*stack)->next->n - (*stack)->n;
-	(*stack)->next->n = temp;
-	mpop(stack, line_number);
-}*/

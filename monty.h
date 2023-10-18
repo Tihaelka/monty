@@ -64,29 +64,12 @@ void mpop(stack_t **stack, unsigned int line_num);
 
 void mswap(stack_t **stack, unsigned int line_num);
 
-/*void msub(stack_t **stack, unsigned int line_num);*/
-
 void madd(stack_t **stack, unsigned int line_num);
 
+int usage(int option);
 
-/*void mmul(stack_t **stack, unsigned int line_number);
-
-void mdiv(stack_t **stack, unsigned int line_number);
-
-void mmod(stack_t **stack, unsigned int line_number);
-
-void mpchar(stack_t **stack, unsigned int line_number);
-
-void mpstr(stack_t **stack, unsigned int line_number);
-
-
-void mrotl(stack_t **stack, unsigned int line_number);
-
-void mrotr(stack_t **stack, unsigned int line_number);
-*/
-
-int usage(int flag);
 int open(char *filename);
-int print(int flag, unsigned int line_num);
 
-#endif /* __MONTY_H__ */
+int print(int option, unsigned int line_num);
+
+#endif
