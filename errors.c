@@ -1,17 +1,11 @@
-/*
- * File name: errors.c
- * Authors:	Luis Miguel Vargas
- *		Robinson Montes
- */
-
 #include "monty.h"
 
 /**
- * usage_error - Afunction that prints usage error message.
+ * usage - Afunction that prints usage error message.
  * @flag: Type of error: 0 malloc'd failed, or 1 usage.
  * Return: EXIT_FAILURE.
  */
-int usage_error(int flag)
+int usage(int flag)
 {
 	char *errors[2] = {"Error: malloc failed", "USAGE: monty file"};
 
@@ -20,23 +14,23 @@ int usage_error(int flag)
 }
 
 /**
- * open_error - A function that prints file open error message.
+ * open - A function that prints file open error message.
  * @filename: Name of file failed to open.
  * Return: EXIT_FAILURE.
  */
-int open_error(char *filename)
+int open(char *filename)
 {
 	fprintf(stderr, "Error: Can't open file %s\n", filename);
 	return (EXIT_FAILURE);
 }
 
 /**
- * f_errors - A function that print the errors.
+ * print - A function that print the errors.
  * @flag: The index to type of error.
  * @line_num: The number of line in file with error.
  * Return: EXIT_FAILURE.
  */
-int f_errors(int flag, unsigned int line_num)
+int print(int flag, unsigned int line_num)
 {
 	char *errors[] = {"usage: push integer", "can\'t pint, stack empty",
 	     "can\'t pop an empty stack", "can\'t swap, stack too short",

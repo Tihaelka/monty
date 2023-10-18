@@ -1,17 +1,11 @@
-/*
- * File name:	monty_run.c
- * Authors:	Luis Miguel Vargas
- *		Robinson Montes
- */
-
 #include "monty.h"
 
 /**
- * monty_run - A function that runs a Monty bytecodes script.
+ * mrun - A function that runs a Monty bytecodes script.
  * @fd: File descriptor for an open Monty bytecodes script.
  * Return: EXIT_SUCCESS on success, or EXIT_FAILURE on error.
  */
-int monty_run(FILE *fd)
+int mrun(FILE *fd)
 {
 	stack_t *stack = NULL;
 	char *line = NULL, **token = NULL, delim[] = " \n\t\a\b";
@@ -34,9 +28,9 @@ int monty_run(FILE *fd)
 		else if (strcmp(token[0], "queue") == 0)
 			mode = 0;
 		else if (strcmp(token[0], "push") == 0 && mode == 0)
-			exit_status = monty_pushq(&stack, token, line_num);
+			exit_status = mpush(&stack, token, line_num);
 		else if (strcmp(token[0], "push") == 0 && mode == 1)
-			exit_status = monty_push(&stack, token, line_num);
+			exit_status = push(&stack, token, line_num);
 		else
 			exit_status = execute(token, &stack, line_num);
 		free(token);
@@ -71,7 +65,7 @@ char **tokening(char *line, char *delim)
 	{
 		free(line);
 		free(token);
-		exit(usage_error(0));
+		exit(usage(0));
 	}
 	tokens = strtok(line, delim);
 	if (tokens == NULL)
