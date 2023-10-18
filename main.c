@@ -1,53 +1,34 @@
-#include "monty.h"
-#define _GNU_SOURCE
+/*
+ * File name:	monty_main.c
+ * Authors:	Luis Miguel Vargas
+ *		Robinson Montes
+ */
 
-bus_t bus = {NULL, NULL, NULL, 0};
+#include "monty.h"
 
 /**
-* main - monty code interpreter
-* @argc: argument counter
-* @argv: argument vector
-*
-* Return: always 0
-*/
-int main(int argc, char *argv[])
+ * main - The entry point function for Monty Interpreter.
+ * @ac: The number of arguments.
+ * @av: The pointer to an array of inputed arguments.
+ * Return: Always 0 (on Success).
+ */
+int main(int ac, char **av)
 {
-	char *content;
-	FILE *file;
-	size_t size = 0;
-	ssize_t read_line = 1;
-	stack_t *stack = NULL;
-	unsigned int counter = 0;
+	FILE *fd = NULL;
+	int exit_status = EXIT_SUCCESS;
 
-	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
+	if (ac != 2)
+		return (usage_error(1));
 
-	file = fopen(argv[1], "r");
-	bus.file = file;
+	fd = fopen(av[1], "r");
+	if (fd == NULL)
+		return (open_error(av[1]));
 
-	if (!file)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
-	}
-
-	while (read_line > 0)
-	{
-		content = NULL;
-		read_line = getline(&content, &size, file);
-		bus.content = content;
-		counter++;
-
-		if (read_line > 0)
-			execute(content, &stack, counter, file);
-
-		free(content);
-	}
-
-	free_stack(stack);
-	fclose(file);
+	exit_status = monty_run(fd);
+	fclose(fd);
+	return (exit_status);
+		open_error(av[1]);
+	monty_run(fd);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
