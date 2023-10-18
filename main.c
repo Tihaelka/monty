@@ -1,34 +1,40 @@
-/*
- * File name:	monty_main.c
- * Authors:	Luis Miguel Vargas
- *		Robinson Montes
- */
-
 #include "monty.h"
 
-/**
- * main - The entry point function for Monty Interpreter.
- * @ac: The number of arguments.
- * @av: The pointer to an array of inputed arguments.
- * Return: Always 0 (on Success).
- */
-int main(int ac, char **av)
-{
-	FILE *fd = NULL;
-	int exit_status = EXIT_SUCCESS;
+int main(int argc, char *argv[]) {
+    FILE *file;
+    char *content = NULL;
+    size_t size = 0;
+    ssize_t read_line;
+    stack_t *stack = NULL;
+    unsigned int counter = 0;
 
-	if (ac != 2)
-		return (usage_error(1));
+    char *token;
 
-	fd = fopen(av[1], "r");
-	if (fd == NULL)
-		return (open_error(av[1]));
+    if (argc != 2) {
+        fprintf(stderr, "USAGE: monty file\n");
+        exit(EXIT_FAILURE);
+    }
 
-	exit_status = monty_run(fd);
-	fclose(fd);
-	return (exit_status);
-		open_error(av[1]);
-	monty_run(fd);
-	exit(EXIT_SUCCESS);
-	return (0);
+    file = fopen(argv[1], "r");
+    if (!file) {
+        fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+        exit(EXIT_FAILURE);
+    }
+
+    while ((read_line = getline(&content, &size, file)) != -1) {
+        counter++;
+
+        token = strtok(content, " \t\n");
+        if (token && *token != '#') {
+            execute(&token, &stack, counter);
+        }
+
+        free(content);
+        content = NULL;
+    }
+
+    free_stack(&stack);
+    fclose(file);
+    return (0);
 }
+
